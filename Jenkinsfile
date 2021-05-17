@@ -45,6 +45,17 @@ node {
                 sh 'sudo chmod a+x ./twistcli'
                 sh "./twistcli images scan --u $TL_USER --p $TL_PASS --address https://$TL_CONSOLE --details solalraveh/evilpetclinic:latest"
             }
+	    // Scan the image
+            prismaCloudScanImage ca: '',
+            cert: '',
+            dockerAddress: 'unix:///var/run/docker.sock',
+            image: 'solalraveh/evilpetclinic:latest',
+            key: '',
+            logLevel: 'info',
+            podmanPath: '',
+            project: '',
+            resultsFile: 'prisma-cloud-scan-results.json',
+            ignoreImageBuildTime:true
         } catch (err) {
             echo err.getMessage()
             echo "Error detected"
