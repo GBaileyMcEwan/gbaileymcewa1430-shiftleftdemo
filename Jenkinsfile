@@ -56,7 +56,6 @@ node {
             project: '',
             resultsFile: 'prisma-cloud-scan-results.json',
             ignoreImageBuildTime:true
-	    prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
         } catch (err) {
             echo err.getMessage()
             echo "Error detected"
@@ -136,5 +135,11 @@ stage("Scan Cloud Formation Template with API v2") {
 
     stage('Run bad HTTP stuff for WAAS to catch') {
         sh('chmod +x files/waas_attacks.sh && ./files/waas_attacks.sh')
+    }
+    post {
+        always {
+            // The post section lets you run the publish step regardless of the scan results
+            prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
+        }
     }
 }
