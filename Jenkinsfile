@@ -1,4 +1,7 @@
 node {
+    environment {
+        BC_API = credentials('bc-api-key')
+    }
     files= ['deploy.yml']
 
     withCredentials([usernamePassword(credentialsId: 'prisma_cloud', passwordVariable: 'PC_PASS', usernameVariable: 'PC_USER')]) {
@@ -111,10 +114,9 @@ stage("Scan Cloud Formation Template with API v2") {
 	
 stage('Checkov') {
 	try {
-	     BC_API = credentials('bc-api-key')
-		print "${BC_API}"
              //response = sh(script:"checkov --file files/deploy.yml", returnStdout:true).trim() // -o junitxml > result.xml || true"
-		response = sh(script:"checkov --file files/deploy.yml --bc-api-key ${BC_API} --repo-id gbaileymcewan/gbaileymcewa1430-shiftleftdemo -b main -o junitxml > result.xml || true", returnStdout:true).trim() // -o junitxml > result.xml || true"
+		print "$BC_API"
+		response = sh(script:"checkov --file files/deploy.yml --bc-api-key $BC_API --repo-id gbaileymcewan/gbaileymcewa1430-shiftleftdemo -b main -o junitxml > result.xml || true", returnStdout:true).trim() // -o junitxml > result.xml || true"
 	     //print "${response}"
 	     response = sh(script:"cat result.xml", returnStdout:true)
 	     print "${response}"
