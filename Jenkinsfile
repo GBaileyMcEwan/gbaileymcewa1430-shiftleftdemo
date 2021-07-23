@@ -110,16 +110,14 @@ stage("Scan Cloud Formation Template with API v2") {
 }
 	
 stage('Checkov') {
-            steps {
-		    try {
-                    	sh "checkov --file files/deploy.yml -o junitxml > result.xml || true"
-                    	junit "result.xml"
-		    }
-		    catch (err) {
-            		echo err.getMessage()
-            		echo "Error detected"
-		    }
-            }
+	try {
+             sh "checkov --file files/deploy.yml -o junitxml > result.xml || true"
+             junit "result.xml"
+	}
+	catch (err) {
+            echo err.getMessage()
+            echo "Error detected"
+	}
 }
 
 //    files.each { item ->
