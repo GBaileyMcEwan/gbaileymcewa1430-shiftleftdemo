@@ -111,8 +111,9 @@ stage("Scan Cloud Formation Template with API v2") {
 	
 stage('Checkov') {
 	try {
-             sh "checkov --file files/deploy.yml -o junitxml > result.xml || true"
-             junit "result.xml"
+             response = sh(script:"checkov --file files/deploy.yml", returnStdout:true).trim() // -o junitxml > result.xml || true"
+	     print "${response}"
+             //junit "result.xml"
 	}
 	catch (err) {
             echo err.getMessage()
