@@ -108,6 +108,20 @@ stage("Scan Cloud Formation Template with API v2") {
         print "${SCAN_RESULTS}"
 
 }
+	
+stage('Checkov') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: 'main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'gbaileymcewan/gbaileymcewa1430-shiftleftdemo.git']]])
+                script {
+                    sh "pipenv install"
+                    sh "pipenv run pip install checkov"
+                    sh "pipenv run checkov --file files/deploy.yml -o junitxml > result.xml || true"
+                    junit "result.xml"
+                }
+
+
+            }
+}
 
 //    files.each { item ->
 //        stage("Scan IaC file ${item} with twistcli") {
