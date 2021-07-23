@@ -159,4 +159,9 @@ stage('Checkov') {
             prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
         }
     }
+    options {
+        preserveStashes()
+        timestamps()
+        ansiColor('xterm')
+    }
 }
