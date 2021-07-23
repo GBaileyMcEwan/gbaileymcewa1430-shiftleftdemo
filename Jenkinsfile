@@ -112,8 +112,9 @@ stage("Scan Cloud Formation Template with API v2") {
 stage('Checkov') {
             steps {
 		    try {
-                	checkout([$class: 'GitSCM', branches: [[name: 'main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'gbaileymcewan/gbaileymcewa1430-shiftleftdemo.git']]])
-                	script {
+                	//checkout([$class: 'GitSCM', branches: [[name: 'main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'gbaileymcewan/gbaileymcewa1430-shiftleftdemo.git']]])
+                	checkout([$class: 'GitSCM', branches: [[name: '*/main']],userRemoteConfigs: [[url: 'http://github.com/gbaileymcewan/gbaileymcewa1430-shiftleftdemo.git']]])
+			    script {
                     		sh "pipenv install"
                     		sh "pipenv run pip install checkov"
                     		sh "pipenv run checkov --file files/deploy.yml -o junitxml > result.xml || true"
