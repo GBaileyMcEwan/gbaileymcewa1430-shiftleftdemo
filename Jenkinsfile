@@ -113,10 +113,10 @@ stage('Checkov') {
 	try {
              //response = sh(script:"checkov --file files/deploy.yml", returnStdout:true).trim() // -o junitxml > result.xml || true"
 	     response = sh(script:"checkov --file files/deploy.yml -o junitxml > result.xml || true", returnStdout:true).trim() // -o junitxml > result.xml || true"
-	     print "${response}"
+	     //print "${response}"
 	     response = sh(script:"cat result.xml", returnStdout:true)
 	     print "${response}"
-             junit "result.xml"
+             //junit "result.xml"
 	}
 	catch (err) {
             echo err.getMessage()
