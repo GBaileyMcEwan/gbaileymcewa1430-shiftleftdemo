@@ -116,7 +116,7 @@ stage('Checkov') {
 	     //print "${response}"
 	     response = sh(script:"cat result.xml", returnStdout:true)
 	     print "${response}"
-             //junit "result.xml"
+             junit skipPublishingChecks: true, testResults: "result.xml"
 	}
 	catch (err) {
             echo err.getMessage()
