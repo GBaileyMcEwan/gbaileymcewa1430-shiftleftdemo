@@ -115,12 +115,11 @@ stage('Checkov') {
 	     withCredentials([
             	string(
               		credentialsId: 'bc-api-key',
-              		variable: 'joke')
-          ]) {
-            print 'joke=' + joke
-            print 'joke.collect { it }=' + joke.collect { it }
-          }
+              		variable: 'BC_API')
+             ]) {
 		response = sh(script:"checkov --file files/deploy.yml --bc-api-key $BC_API --repo-id gbaileymcewan/gbaileymcewa1430-shiftleftdemo -b main -o junitxml > result.xml || true", returnStdout:true).trim() // -o junitxml > result.xml || true"
+             }
+		
 	     //print "${response}"
 	     response = sh(script:"cat result.xml", returnStdout:true)
 	     print "${response}"
