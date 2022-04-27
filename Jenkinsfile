@@ -48,7 +48,8 @@ node {
             //}
             prismaCloudScanImage ca: '',
             cert: '',
-            dockerAddress: 'unix:///var/run/docker.sock',
+            // dockerAddress: 'unix:///var/run/docker.sock',
+            dockerAddress: 'tcp://192.168.10.60:2375',
             image: 'solalraveh/evilpetclinic:latest',
             key: '',
             logLevel: 'info',
