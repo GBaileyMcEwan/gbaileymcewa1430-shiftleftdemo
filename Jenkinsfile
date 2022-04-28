@@ -40,7 +40,8 @@ node {
     }
 
     stage('Scan image with twistcli') {
-        try {
+        sh 'docker pull niftyshorts/flask:latest'
+	try {
 	    // Scan the image
 	    //sh 'docker pull solalraveh/evilpetclinic:latest'
             //withCredentials([usernamePassword(credentialsId: 'twistlock_creds', passwordVariable: 'TL_PASS', usernameVariable: 'TL_USER')]) {
@@ -52,7 +53,8 @@ node {
             cert: '',
             dockerAddress: 'unix:///var/run/docker.sock',
             // dockerAddress: 'tcp://192.168.10.60:2375',
-            image: 'solalraveh/evilpetclinic:latest',
+            //image: 'solalraveh/evilpetclinic:latest',
+	    image: 'niftyshorts/flask:latest',
             key: '',
             logLevel: 'info',
             podmanPath: '',
